@@ -1,0 +1,10 @@
+D:\VS2013\FileRelease\FileRelease.DAL\obj\Debug\FileRelease.DAL.csprojResolveAssemblyReference.cache
+D:\VS2013\FileRelease\FileRelease.DAL\bin\Debug\FileRelease.DAL.dll
+D:\VS2013\FileRelease\FileRelease.DAL\bin\Debug\FileRelease.DAL.pdb
+D:\VS2013\FileRelease\FileRelease.DAL\bin\Debug\FileRelease.Model.dll
+D:\VS2013\FileRelease\FileRelease.DAL\bin\Debug\FluentNHibernate.dll
+D:\VS2013\FileRelease\FileRelease.DAL\bin\Debug\NHibernate.dll
+D:\VS2013\FileRelease\FileRelease.DAL\bin\Debug\FileRelease.Model.pdb
+D:\VS2013\FileRelease\FileRelease.DAL\obj\Debug\FileRelease.DAL.dll
+D:\VS2013\FileRelease\FileRelease.DAL\obj\Debug\FileRelease.DAL.pdb
+D:\VS2013\FileRelease\FileRelease.DAL\bin\Debug\Util.dll

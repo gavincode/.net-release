@@ -1,0 +1,4 @@
+D:\VS2013\FileRelease\FileRelease.Util\bin\Debug\FileRelease.Util.dll
+D:\VS2013\FileRelease\FileRelease.Util\bin\Debug\FileRelease.Util.pdb
+D:\VS2013\FileRelease\FileRelease.Util\obj\Debug\FileRelease.Util.dll
+D:\VS2013\FileRelease\FileRelease.Util\obj\Debug\FileRelease.Util.pdb
