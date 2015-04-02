@@ -9,3 +9,14 @@ D:\VS2013\FileRelease\FileRelease.Util\bin\Debug\Util.dll
 D:\VS2013\FileRelease\FileRelease.Util\bin\Debug\FileRelease.Model.pdb
 D:\VS2013\FileRelease\FileRelease.Util\obj\Debug\FileRelease.Utils.csprojResolveAssemblyReference.cache
 D:\VS2013\FileRelease\FileRelease.Util\bin\Debug\Ionic.Zip.dll
+D:\VS2013\FileRelease\.net-release\FileRelease.Util\bin\Debug\FileRelease.Utils.dll
+D:\VS2013\FileRelease\.net-release\FileRelease.Util\bin\Debug\FileRelease.Utils.pdb
+D:\VS2013\FileRelease\.net-release\FileRelease.Util\bin\Debug\FileRelease.Model.dll
+D:\VS2013\FileRelease\.net-release\FileRelease.Util\bin\Debug\Ionic.Zip.dll
+D:\VS2013\FileRelease\.net-release\FileRelease.Util\bin\Debug\FluentNHibernate.dll
+D:\VS2013\FileRelease\.net-release\FileRelease.Util\bin\Debug\NHibernate.dll
+D:\VS2013\FileRelease\.net-release\FileRelease.Util\bin\Debug\Util.dll
+D:\VS2013\FileRelease\.net-release\FileRelease.Util\bin\Debug\FileRelease.Model.pdb
+D:\VS2013\FileRelease\.net-release\FileRelease.Util\obj\Debug\FileRelease.Utils.csprojResolveAssemblyReference.cache
+D:\VS2013\FileRelease\.net-release\FileRelease.Util\obj\Debug\FileRelease.Utils.dll
+D:\VS2013\FileRelease\.net-release\FileRelease.Util\obj\Debug\FileRelease.Utils.pdb

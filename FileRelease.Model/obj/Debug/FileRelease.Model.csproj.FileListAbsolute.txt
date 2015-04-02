@@ -5,3 +5,10 @@ D:\VS2013\FileRelease\FileRelease.Model\bin\Debug\NHibernate.dll
 D:\VS2013\FileRelease\FileRelease.Model\obj\Debug\FileRelease.Model.dll
 D:\VS2013\FileRelease\FileRelease.Model\obj\Debug\FileRelease.Model.pdb
 D:\VS2013\FileRelease\FileRelease.Model\bin\Debug\Util.dll
+D:\VS2013\FileRelease\.net-release\FileRelease.Model\bin\Debug\FileRelease.Model.dll
+D:\VS2013\FileRelease\.net-release\FileRelease.Model\bin\Debug\FileRelease.Model.pdb
+D:\VS2013\FileRelease\.net-release\FileRelease.Model\bin\Debug\FluentNHibernate.dll
+D:\VS2013\FileRelease\.net-release\FileRelease.Model\bin\Debug\NHibernate.dll
+D:\VS2013\FileRelease\.net-release\FileRelease.Model\bin\Debug\Util.dll
+D:\VS2013\FileRelease\.net-release\FileRelease.Model\obj\Debug\FileRelease.Model.dll
+D:\VS2013\FileRelease\.net-release\FileRelease.Model\obj\Debug\FileRelease.Model.pdb

@@ -42,7 +42,7 @@ namespace FileRelease.DAL
         static BaseDAL()
         {
             Instance = Fluently.Configure()
-           .Database(MySQLConfiguration.Standard.ConnectionString("DataSource=192.168.1.240;port=3306;UserId=root;Password=1234;Database=gavin_develop;Allow Zero Datetime=true;AllowUserVariables=True;charset=utf8;pooling=true;MinimumPoolSize=20;maximumpoolsize=200;command timeout=60;"))
+           .Database(SQLiteConfiguration.Standard.UsingFile(DbFile))
            .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Project>().Conventions.Add(DefaultCascade.All()))
            .ExposeConfiguration(CreateSchema)
            .BuildSessionFactory();
