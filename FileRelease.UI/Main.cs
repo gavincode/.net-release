@@ -469,7 +469,7 @@ namespace FileRelease.UI
         /// <returns></returns>
         private String BuildText(List<String> list)
         {
-            return String.Join(",", list);
+            return String.Join(",", list.ToArray());
         }
 
         #endregion
