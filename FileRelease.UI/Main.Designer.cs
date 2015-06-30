@@ -57,14 +57,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbRAR = new System.Windows.Forms.CheckBox();
-            this.msMenu = new System.Windows.Forms.MenuStrip();
-            this.tsmiSettings = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.ckbRAR = new System.Windows.Forms.CheckBox();
             this.lblChoice = new System.Windows.Forms.Label();
+            this.ckbCode = new System.Windows.Forms.CheckBox();
+            this.ckbRelease = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProject)).BeginInit();
             this.cmsProject.SuspendLayout();
-            this.msMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvProject
@@ -166,7 +164,7 @@
             this.cbReleaseFolder.AutoSize = true;
             this.cbReleaseFolder.Checked = true;
             this.cbReleaseFolder.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbReleaseFolder.Location = new System.Drawing.Point(618, 106);
+            this.cbReleaseFolder.Location = new System.Drawing.Point(611, 104);
             this.cbReleaseFolder.Name = "cbReleaseFolder";
             this.cbReleaseFolder.Size = new System.Drawing.Size(60, 16);
             this.cbReleaseFolder.TabIndex = 35;
@@ -178,7 +176,7 @@
             // 
             this.link_ReleasePackageView.AutoSize = true;
             this.link_ReleasePackageView.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.link_ReleasePackageView.Location = new System.Drawing.Point(734, 71);
+            this.link_ReleasePackageView.Location = new System.Drawing.Point(724, 70);
             this.link_ReleasePackageView.Name = "link_ReleasePackageView";
             this.link_ReleasePackageView.Size = new System.Drawing.Size(53, 12);
             this.link_ReleasePackageView.TabIndex = 31;
@@ -190,7 +188,7 @@
             // 
             this.link_UIView.AutoSize = true;
             this.link_UIView.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.link_UIView.Location = new System.Drawing.Point(631, 71);
+            this.link_UIView.Location = new System.Drawing.Point(619, 70);
             this.link_UIView.Name = "link_UIView";
             this.link_UIView.Size = new System.Drawing.Size(53, 12);
             this.link_UIView.TabIndex = 30;
@@ -205,6 +203,8 @@
             this.cmbUIFolder.Name = "cmbUIFolder";
             this.cmbUIFolder.Size = new System.Drawing.Size(374, 20);
             this.cmbUIFolder.TabIndex = 29;
+            this.cmbUIFolder.SelectedIndexChanged += new System.EventHandler(this.cmbUIFolder_SelectedIndexChanged);
+            this.cmbUIFolder.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cmbUIFolder_MouseClick);
             // 
             // lblUIFolder
             // 
@@ -220,9 +220,9 @@
             // 
             this.btnRelease.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnRelease.ForeColor = System.Drawing.Color.Black;
-            this.btnRelease.Location = new System.Drawing.Point(835, 37);
+            this.btnRelease.Location = new System.Drawing.Point(842, 29);
             this.btnRelease.Name = "btnRelease";
-            this.btnRelease.Size = new System.Drawing.Size(81, 77);
+            this.btnRelease.Size = new System.Drawing.Size(75, 59);
             this.btnRelease.TabIndex = 26;
             this.btnRelease.Text = "发布";
             this.btnRelease.UseVisualStyleBackColor = true;
@@ -231,7 +231,7 @@
             // cbIncrease
             // 
             this.cbIncrease.AutoSize = true;
-            this.cbIncrease.Location = new System.Drawing.Point(692, 106);
+            this.cbIncrease.Location = new System.Drawing.Point(684, 104);
             this.cbIncrease.Name = "cbIncrease";
             this.cbIncrease.Size = new System.Drawing.Size(48, 16);
             this.cbIncrease.TabIndex = 27;
@@ -245,6 +245,7 @@
             this.cmbReleaseFolder.Name = "cmbReleaseFolder";
             this.cmbReleaseFolder.Size = new System.Drawing.Size(374, 20);
             this.cmbReleaseFolder.TabIndex = 37;
+            this.cmbReleaseFolder.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cmbReleaseFolder_MouseClick);
             // 
             // label3
             // 
@@ -260,7 +261,7 @@
             // 
             this.cmbProject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbProject.FormattingEnabled = true;
-            this.cmbProject.Location = new System.Drawing.Point(615, 31);
+            this.cmbProject.Location = new System.Drawing.Point(609, 30);
             this.cmbProject.Name = "cmbProject";
             this.cmbProject.Size = new System.Drawing.Size(183, 20);
             this.cmbProject.TabIndex = 38;
@@ -279,7 +280,7 @@
             // 
             this.txtName.Location = new System.Drawing.Point(129, 104);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(273, 21);
+            this.txtName.Size = new System.Drawing.Size(282, 21);
             this.txtName.TabIndex = 40;
             // 
             // btnSave
@@ -297,7 +298,7 @@
             // 
             this.lblProject.AutoSize = true;
             this.lblProject.ForeColor = System.Drawing.Color.Black;
-            this.lblProject.Location = new System.Drawing.Point(536, 35);
+            this.lblProject.Location = new System.Drawing.Point(531, 35);
             this.lblProject.Name = "lblProject";
             this.lblProject.Size = new System.Drawing.Size(59, 12);
             this.lblProject.TabIndex = 42;
@@ -307,7 +308,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(536, 71);
+            this.label1.Location = new System.Drawing.Point(531, 71);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 12);
             this.label1.TabIndex = 43;
@@ -333,38 +334,10 @@
             this.cbRAR.Text = "RAR";
             this.cbRAR.UseVisualStyleBackColor = true;
             // 
-            // msMenu
-            // 
-            this.msMenu.Dock = System.Windows.Forms.DockStyle.None;
-            this.msMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiSettings});
-            this.msMenu.Location = new System.Drawing.Point(0, 0);
-            this.msMenu.Name = "msMenu";
-            this.msMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.msMenu.Size = new System.Drawing.Size(52, 25);
-            this.msMenu.TabIndex = 44;
-            this.msMenu.Text = "menuStrip1";
-            // 
-            // tsmiSettings
-            // 
-            this.tsmiSettings.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiFilter});
-            this.tsmiSettings.Name = "tsmiSettings";
-            this.tsmiSettings.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.O)));
-            this.tsmiSettings.Size = new System.Drawing.Size(44, 21);
-            this.tsmiSettings.Text = "选项";
-            // 
-            // tsmiFilter
-            // 
-            this.tsmiFilter.Name = "tsmiFilter";
-            this.tsmiFilter.Size = new System.Drawing.Size(132, 22);
-            this.tsmiFilter.Text = "        设置";
-            this.tsmiFilter.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            // 
             // ckbRAR
             // 
             this.ckbRAR.AutoSize = true;
-            this.ckbRAR.Location = new System.Drawing.Point(756, 106);
+            this.ckbRAR.Location = new System.Drawing.Point(748, 104);
             this.ckbRAR.Name = "ckbRAR";
             this.ckbRAR.Size = new System.Drawing.Size(42, 16);
             this.ckbRAR.TabIndex = 45;
@@ -375,20 +348,43 @@
             // 
             this.lblChoice.AutoSize = true;
             this.lblChoice.ForeColor = System.Drawing.Color.Black;
-            this.lblChoice.Location = new System.Drawing.Point(536, 107);
+            this.lblChoice.Location = new System.Drawing.Point(531, 107);
             this.lblChoice.Name = "lblChoice";
             this.lblChoice.Size = new System.Drawing.Size(59, 12);
             this.lblChoice.TabIndex = 46;
             this.lblChoice.Text = "发布选项:";
+            // 
+            // ckbCode
+            // 
+            this.ckbCode.AutoSize = true;
+            this.ckbCode.Location = new System.Drawing.Point(804, 104);
+            this.ckbCode.Name = "ckbCode";
+            this.ckbCode.Size = new System.Drawing.Size(48, 16);
+            this.ckbCode.TabIndex = 47;
+            this.ckbCode.Text = "Code";
+            this.ckbCode.UseVisualStyleBackColor = true;
+            this.ckbCode.CheckedChanged += new System.EventHandler(this.ckbCode_CheckedChanged);
+            // 
+            // ckbRelease
+            // 
+            this.ckbRelease.AutoSize = true;
+            this.ckbRelease.Location = new System.Drawing.Point(862, 104);
+            this.ckbRelease.Name = "ckbRelease";
+            this.ckbRelease.Size = new System.Drawing.Size(66, 16);
+            this.ckbRelease.TabIndex = 48;
+            this.ckbRelease.Text = "Release";
+            this.ckbRelease.UseVisualStyleBackColor = true;
+            this.ckbRelease.CheckedChanged += new System.EventHandler(this.ckbRelease_CheckedChanged);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(941, 500);
+            this.Controls.Add(this.ckbRelease);
+            this.Controls.Add(this.ckbCode);
             this.Controls.Add(this.lblChoice);
             this.Controls.Add(this.ckbRAR);
-            this.Controls.Add(this.msMenu);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblProject);
             this.Controls.Add(this.btnSave);
@@ -406,15 +402,12 @@
             this.Controls.Add(this.cbIncrease);
             this.Controls.Add(this.dgvProject);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.msMenu;
             this.MaximizeBox = false;
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ReleaseTool";
             ((System.ComponentModel.ISupportInitialize)(this.dgvProject)).EndInit();
             this.cmsProject.ResumeLayout(false);
-            this.msMenu.ResumeLayout(false);
-            this.msMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -449,10 +442,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
         private System.Windows.Forms.CheckBox cbRAR;
-        private System.Windows.Forms.MenuStrip msMenu;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSettings;
-        private System.Windows.Forms.ToolStripMenuItem tsmiFilter;
         private System.Windows.Forms.CheckBox ckbRAR;
         private System.Windows.Forms.Label lblChoice;
+        private System.Windows.Forms.CheckBox ckbCode;
+        private System.Windows.Forms.CheckBox ckbRelease;
     }
 }

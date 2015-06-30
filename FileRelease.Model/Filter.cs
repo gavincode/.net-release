@@ -21,7 +21,7 @@ namespace FileRelease.Model
     /// </summary>
     public class Filter
     {
-        public virtual Int32 Id { get; set; }
+        public virtual Guid Id { get; set; }
 
         public virtual String Folders { get; set; }
 
@@ -31,36 +31,23 @@ namespace FileRelease.Model
 
         public virtual String KeyWords { get; set; }
 
-        public virtual Project Project { get; set; }
-
-        public virtual List<String> FolderList
+        public virtual List<String> FolderList()
         {
-            get
-            {
-                return BuildList(Folders);
-            }
+            return BuildList(Folders);
         }
 
-        public virtual List<String> FileList
+        public virtual List<String> FileList()
         {
-            get
-            {
-                return BuildList(Files);
-            }
+            return BuildList(Files);
         }
-        public virtual List<String> TypeList
+
+        public virtual List<String> TypeList()
         {
-            get
-            {
-                return BuildList(Types);
-            }
+            return BuildList(Types);
         }
-        public virtual List<String> KeyWordList
+        public virtual List<String> KeyWordList()
         {
-            get
-            {
-                return BuildList(KeyWords);
-            }
+            return BuildList(KeyWords);
         }
 
         /// <summary>

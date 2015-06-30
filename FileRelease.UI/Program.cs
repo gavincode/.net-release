@@ -21,7 +21,27 @@ namespace FileRelease.UI
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+#if DEBUG
+
             Application.Run(new Main());
+
+#endif
+
+#if !DEBUG
+
+            try
+            {
+                Application.Run(new Main());
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Write(ex.Message + Environment.NewLine + ex.StackTrace, LogType.Error);
+                MessageBox.Show("请查看错误日志!");
+            }
+
+#endif
+
         }
     }
 }

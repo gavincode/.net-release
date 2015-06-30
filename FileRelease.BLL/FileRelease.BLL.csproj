@@ -49,9 +49,6 @@
     <Compile Include="RegeditBLL.cs" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\FileRelease.Util\FileRelease.Utils.csproj">
       <Project>{2dd5bda5-3122-4aee-81b5-a929f9ca20ef}</Project>
       <Name>FileRelease.Utils</Name>

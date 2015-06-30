@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Reflection;
 using System.IO;
+using Util;
 
 namespace FileRelease.BLL
 {
@@ -22,7 +23,7 @@ namespace FileRelease.BLL
     /// </summary>
     public class CommonBLL
     {
-        public static Int32 EditId = 0;
+        public static Guid EditId = Guid.Empty;
 
         /// <summary>
         /// 获取运行时程序集环境
@@ -51,6 +52,16 @@ namespace FileRelease.BLL
             }
 
             return privatePath;
+        }
+
+        /// <summary>
+        /// 获取默认Release文件夹
+        /// </summary>
+        /// <param name="uiFolder"></param>
+        /// <returns></returns>
+        public static List<String> GetReleaseFolders(String uiFolder)
+        {
+            return Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)).ToList();
         }
     }
 }

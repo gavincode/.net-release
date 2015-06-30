@@ -40,6 +40,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.linkAddDefault = new System.Windows.Forms.LinkLabel();
+            this.linkCode = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // lblFolderFilter
@@ -137,20 +138,33 @@
             // linkAddDefault
             // 
             this.linkAddDefault.AutoSize = true;
-            this.linkAddDefault.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.linkAddDefault.Location = new System.Drawing.Point(512, 9);
+            this.linkAddDefault.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.linkAddDefault.Location = new System.Drawing.Point(12, 247);
             this.linkAddDefault.Name = "linkAddDefault";
-            this.linkAddDefault.Size = new System.Drawing.Size(29, 12);
+            this.linkAddDefault.Size = new System.Drawing.Size(47, 12);
             this.linkAddDefault.TabIndex = 14;
             this.linkAddDefault.TabStop = true;
-            this.linkAddDefault.Text = "默认";
+            this.linkAddDefault.Text = "Release";
             this.linkAddDefault.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkAddDefault_LinkClicked);
+            // 
+            // linkCode
+            // 
+            this.linkCode.AutoSize = true;
+            this.linkCode.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.linkCode.Location = new System.Drawing.Point(82, 247);
+            this.linkCode.Name = "linkCode";
+            this.linkCode.Size = new System.Drawing.Size(29, 12);
+            this.linkCode.TabIndex = 15;
+            this.linkCode.TabStop = true;
+            this.linkCode.Text = "Code";
+            this.linkCode.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkCode_LinkClicked);
             // 
             // FilterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(553, 277);
+            this.Controls.Add(this.linkCode);
             this.Controls.Add(this.linkAddDefault);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
@@ -186,5 +200,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.LinkLabel linkAddDefault;
+        private System.Windows.Forms.LinkLabel linkCode;
     }
 }

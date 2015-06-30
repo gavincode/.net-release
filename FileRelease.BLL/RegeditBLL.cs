@@ -30,8 +30,9 @@ namespace FileRelease.BLL
         /// <summary>
         /// 获取最近打开的项目列表
         /// </summary>
+        /// <param name="release">默认发布文件;为false时,打包项目源代码</param>
         /// <returns></returns>
-        public static List<String> GetRecentProjects()
+        public static List<String> GetRecentProjects(Boolean release = true)
         {
             List<String> projectRecords = new List<String>();
             List<String> projects = new List<String>();
@@ -47,29 +48,43 @@ namespace FileRelease.BLL
             }
 
             //移除多余名称
-
             foreach (var item in projectRecords)
             {
                 projects.Add(item.Split('|')[0]);
             }
 
-            //帅选
+            //筛选
             var suitList = projects.Where(p => p.EndsWith(".sln") || p.EndsWith(".csproj"))
                                    .Where(p => !p.StartsWith("%"))
                                    .Where(p => p.ExistsEx());
 
             List<String> releaseList = new List<String>();
+
+            if (!release)
+            {
+                foreach (var item in suitList)
+                {
+                    releaseList.Add(Directory.GetParent(item).FullName);
+                }
+
+                return releaseList;
+            }
+
             foreach (var item in suitList)
             {
                 foreach (var folder in Directory.GetParent(item).GetDirectories())
                 {
                     if (CanRelease(folder.FullName))
-                        releaseList.Add(folder.FullName);
+                    {
+                        releaseList.Add(GetDebugFolder(folder.FullName));
+                    }
 
                     foreach (var subFolder in Directory.GetDirectories(folder.FullName))
                     {
                         if (CanRelease(subFolder))
-                            releaseList.Add(subFolder);
+                        {
+                            releaseList.Add(GetDebugFolder(subFolder));
+                        }
                     }
                 }
             }
@@ -86,11 +101,24 @@ namespace FileRelease.BLL
         {
             foreach (var item in Directory.GetFiles(folder))
             {
-                if (item.ToLower().EndsWith("app.config") || item.ToLower().EndsWith("web.config"))
+                var fileName = Path.GetFileName(item);
+
+                if (String.Equals(fileName, "app.config", StringComparison.OrdinalIgnoreCase)
+                    || String.Equals(fileName, "web.config", StringComparison.OrdinalIgnoreCase))
                     return true;
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// GetDebugFolder
+        /// </summary>
+        /// <param name="folder"></param>
+        /// <returns></returns>
+        private static String GetDebugFolder(String folder)
+        {
+            return String.Format("{0}\\bin\\Debug", folder);
         }
 
         /// <summary>

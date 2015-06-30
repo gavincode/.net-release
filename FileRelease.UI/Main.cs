@@ -21,14 +21,17 @@ namespace FileRelease.UI
     {
         #region 初始化
 
+        //记录单击时间
+        private static DateTime _clickTime = DateTime.MinValue;
+
         /// <summary>
         /// 构造函数
         /// </summary>
         public Main()
         {
             InitializeComponent();
-            InitControls();
             BindProjects();
+            InitControls();
         }
 
         /// <summary>
@@ -37,6 +40,7 @@ namespace FileRelease.UI
         private void InitControls()
         {
             //DataGridView
+            this.dgvProject.Columns[0].Visible = false;
             this.dgvProject.Columns[0].FillWeight = 5;
             this.dgvProject.Columns[1].FillWeight = 12;
             this.dgvProject.Columns[2].FillWeight = 40;
@@ -51,9 +55,6 @@ namespace FileRelease.UI
             this.dgvProject.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect;
             this.dgvProject.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.dgvProject.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            //取消菜单左侧图标
-            ((ToolStripDropDownMenu)tsmiSettings.DropDown).ShowImageMargin = false;
         }
 
         #endregion
@@ -69,25 +70,55 @@ namespace FileRelease.UI
         {
             Project project = new Project
             {
+                Id = Guid.NewGuid(),
                 Name = txtName.Text,
                 UIFolder = cmbUIFolder.Text,
                 ReleaseFolder = cmbReleaseFolder.Text,
                 LastTime = DateTime.Now
             };
 
-            if (CommonBLL.EditId != 0)
+            if (CommonBLL.EditId != Guid.Empty)
             {
                 project.Id = CommonBLL.EditId;
             }
 
-            ProjectDAL.SaveOrUpdate<Project>(project);
+            if (ProjectDAL.QueryOne(project.Id) == null)
+            {
+                ProjectDAL.Insert(project);
+
+                //添加默认filter
+                Filter filter = new Filter();
+
+                if (ckbCode.Checked)
+                {
+                    filter.Id = project.Id;
+                    filter.Folders = BuildText(FilterForm.DefaultCodeFolders);
+                    filter.Types = BuildText(FilterForm.DefaultCodeTypes);
+                }
+                else
+                {
+                    filter.Id = project.Id;
+                    filter.Files = BuildText(FilterForm.DefaultFiles);
+                    filter.Folders = BuildText(FilterForm.DefaultFolders);
+                    filter.KeyWords = BuildText(FilterForm.DefaultKeyWords);
+                    filter.Types = BuildText(FilterForm.DefaultTypes);
+                }
+
+                project.SetFilter(filter);
+
+                FilterDAL.SaveOrUpdate(filter);
+            }
+            else
+            {
+                ProjectDAL.Update(project);
+            }
 
             BindProjects();
 
             //清空编辑框
             txtName.Text = cmbUIFolder.Text = cmbReleaseFolder.Text = "";
 
-            CommonBLL.EditId = 0;
+            CommonBLL.EditId = Guid.Empty;
         }
 
         /// <summary>
@@ -123,6 +154,11 @@ namespace FileRelease.UI
             DateTime lastTime = cbIncrease.Checked ? project.LastTime : DateTime.MinValue;
 
             String releasedFolder = String.Empty;
+
+            if (project.GetFilter() == null)
+            {
+                project.SetFilter(FilterDAL.QueryOne(project));
+            }
 
             //异步发布文件
             MethodInvoker invoker = new MethodInvoker(() =>
@@ -162,10 +198,10 @@ namespace FileRelease.UI
         /// <param name="e"></param>
         private void smiEdit_Click(object sender, EventArgs e)
         {
-            Int32 id = SelectedRowId();
-            if (id == -1) return;
+            Guid id = SelectedRowId();
+            if (id == Guid.Empty) return;
 
-            Project project = ProjectDAL.Get<Project>(id);
+            Project project = ProjectDAL.QueryOne(id);
 
             //绑定到编辑框
             txtName.Text = project.Name;
@@ -182,13 +218,17 @@ namespace FileRelease.UI
         /// <param name="e"></param>
         private void smiDelete_Click(object sender, EventArgs e)
         {
-            Int32 id = SelectedRowId();
-            if (id == -1) return;
+            Guid id = SelectedRowId();
+            if (id == Guid.Empty) return;
 
-            var project = ProjectDAL.Get<Project>(id);
+            var project = ProjectDAL.QueryOne(id);
 
-            //删除数据
-            ProjectDAL.Delete<Project>(project);
+            //删除项目数据
+            ProjectDAL.Delete(project);
+
+            //删除filter
+            var filter = FilterDAL.QueryOne(new { Id = id });
+            if (filter != null) FilterDAL.Delete(id);
 
             BindProjects();
         }
@@ -254,6 +294,75 @@ namespace FileRelease.UI
             ckbRAR.Enabled = cbReleaseFolder.Checked;
             if (!ckbRAR.Enabled) ckbRAR.Checked = false;
         }
+
+        /// <summary>
+        /// 双击打开UIFolder
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmbUIFolder_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (_clickTime.AddMilliseconds(200) >= DateTime.Now)
+            {
+                OpenFolder(cmbUIFolder.Text);
+            }
+
+            _clickTime = DateTime.Now;
+        }
+
+        /// <summary>
+        /// 双击打开ReleaseFolder
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmbReleaseFolder_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (_clickTime.AddMilliseconds(200) >= DateTime.Now)
+            {
+                OpenFolder(cmbReleaseFolder.Text);
+            }
+
+            _clickTime = DateTime.Now;
+        }
+
+        /// <summary>
+        /// 打包代码Check
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ckbCode_CheckedChanged(object sender, EventArgs e)
+        {
+            BindProjects();
+        }
+
+        /// <summary>
+        /// Release选项
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ckbRelease_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckbRelease.Checked)
+            {
+                cmbUIFolder.Text = cmbUIFolder.Text.Replace("Debug", "Release");
+            }
+            else
+            {
+                cmbUIFolder.Text = cmbUIFolder.Text.Replace("Release", "Debug");
+            }
+        }
+
+        /// <summary>
+        /// UI路径选项改变事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmbUIFolder_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //绑定项目名称
+            this.txtName.Text = GetProjectNameByPath(cmbUIFolder.Text);
+        }
+
         #endregion
 
         #region 私有方法
@@ -263,7 +372,7 @@ namespace FileRelease.UI
         /// </summary>
         private void BindProjects()
         {
-            var projects = ProjectDAL.All<Project>().OrderBy(p => p.Id).ToList();
+            var projects = ProjectDAL.Query().OrderBy(p => p.Name).ToList();
 
             //最后发布时间
             DateTime recentTime = projects.Count == 0 ? DateTime.MinValue : projects.Max(p => p.LastTime);
@@ -277,23 +386,56 @@ namespace FileRelease.UI
             cmbProject.SelectedIndex = projects.FindIndex(p => p.LastTime == recentTime);
 
             //绑定UIFolder
-            cmbUIFolder.DataSource = RegeditBLL.GetRecentProjects();
+            cmbUIFolder.DataSource = RegeditBLL.GetRecentProjects(!ckbCode.Checked);
+
+            List<String> cmbReleaseFolders = projects.Select(p => p.ReleaseFolder).Distinct().ToList();
+
+            if (cmbReleaseFolders.Count == 0)
+            {
+                cmbReleaseFolders = CommonBLL.GetReleaseFolders(cmbUIFolder.Text);
+            }
 
             //绑定ReleaseFolder
-            cmbReleaseFolder.DataSource = projects.Select(p => p.ReleaseFolder).Distinct().ToList();
+            cmbReleaseFolder.DataSource = cmbReleaseFolders;
+        }
+
+        /// <summary>
+        /// 获取项目名称
+        /// </summary>
+        /// <param name="filePath">项目文件路径</param>
+        /// <returns>项目名称</returns>
+        private String GetProjectNameByPath(String filePath)
+        {
+            if (!filePath.ExistsEx()) return String.Empty;
+
+            try
+            {
+                if (ckbCode.Checked)
+                {
+                    return Path.GetFileName(filePath);
+                }
+                else
+                {
+                    return Directory.GetParent(filePath).Parent.Name;
+                }
+            }
+            catch (Exception)
+            {
+                return String.Empty;
+            }
         }
 
         /// <summary>
         /// 选中行Id
         /// </summary>
         /// <returns></returns>
-        private Int32 SelectedRowId()
+        private Guid SelectedRowId()
         {
-            Int32 id;
-            if (!ConvertUtil.TryParseToInt32(dgvProject.CurrentRow.Cells[0].Value, out id))
+            Guid id;
+            if (!ConvertUtil.TryParseToGuid(dgvProject.CurrentRow.Cells[0].Value, out id))
             {
                 MessageBox.Show("选中行没有有效数据");
-                return -1;
+                return Guid.Empty;
             }
 
             return id;
@@ -318,6 +460,16 @@ namespace FileRelease.UI
             {
                 System.Diagnostics.Process.Start(folder);
             }
+        }
+
+        /// <summary>
+        /// 组装文本
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        private String BuildText(List<String> list)
+        {
+            return String.Join(",", list);
         }
 
         #endregion

@@ -19,12 +19,12 @@ namespace FileRelease.Utils
         /// <param name="createFolder">是否创建发布包文件夹</param>
         public static void Release(string projectName, string uiFolder, string releaseFolders, DateTime lastReleaseTime, Boolean createFolder, Project project, ref String releasedFolder)
         {
-            if (project.Filter != null)
+            if (project.GetFilter() != null)
             {
-                FileForeachHelper.fileFilter = project.Filter.FileList;
-                FileForeachHelper.folderFilter = project.Filter.FolderList;
-                FileForeachHelper.fileTypeFilter = project.Filter.TypeList;
-                FileForeachHelper.fileKeyWordFilter = project.Filter.KeyWordList;
+                FileForeachHelper.fileFilter = project.GetFilter().FileList();
+                FileForeachHelper.folderFilter = project.GetFilter().FolderList();
+                FileForeachHelper.fileTypeFilter = project.GetFilter().TypeList();
+                FileForeachHelper.fileKeyWordFilter = project.GetFilter().KeyWordList();
             }
 
             //获取项目UI路径下过滤后的所有文件
