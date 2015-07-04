@@ -203,7 +203,7 @@
             this.cmbUIFolder.Name = "cmbUIFolder";
             this.cmbUIFolder.Size = new System.Drawing.Size(374, 20);
             this.cmbUIFolder.TabIndex = 29;
-            this.cmbUIFolder.SelectedIndexChanged += new System.EventHandler(this.cmbUIFolder_SelectedIndexChanged);
+            this.cmbUIFolder.TextChanged += new System.EventHandler(this.cmbUIFolder_TextChanged);
             this.cmbUIFolder.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cmbUIFolder_MouseClick);
             // 
             // lblUIFolder

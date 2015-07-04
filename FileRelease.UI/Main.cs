@@ -353,14 +353,17 @@ namespace FileRelease.UI
         }
 
         /// <summary>
-        /// UI路径选项改变事件
+        /// UIFolder文本改变事件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cmbUIFolder_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbUIFolder_TextChanged(object sender, EventArgs e)
         {
-            //绑定项目名称
-            this.txtName.Text = GetProjectNameByPath(cmbUIFolder.Text);
+            if (cmbUIFolder.Text.ExistsEx())
+            {
+                //绑定项目名称
+                this.txtName.Text = GetProjectNameByPath(cmbUIFolder.Text);
+            }
         }
 
         #endregion
@@ -390,10 +393,7 @@ namespace FileRelease.UI
 
             List<String> cmbReleaseFolders = projects.Select(p => p.ReleaseFolder).Distinct().ToList();
 
-            if (cmbReleaseFolders.Count == 0)
-            {
-                cmbReleaseFolders = CommonBLL.GetReleaseFolders(cmbUIFolder.Text);
-            }
+            cmbReleaseFolders.AddRange(CommonBLL.GetReleaseFolders(cmbUIFolder.Text));
 
             //绑定ReleaseFolder
             cmbReleaseFolder.DataSource = cmbReleaseFolders;
@@ -410,7 +410,8 @@ namespace FileRelease.UI
 
             try
             {
-                if (ckbCode.Checked)
+                //项目主目录
+                if (ckbCode.Checked || (Directory.Exists(filePath) && Directory.GetFiles(filePath).Count(p => p.EndsWith(".sln")) > 0))
                 {
                     return Path.GetFileName(filePath);
                 }
